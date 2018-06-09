@@ -200,9 +200,12 @@ function play(audioId) {
 }
 
 //audio conrol
-const bgAudio = document.querySelector('#backgroungAudio');
+const bgAudio = document.createElement('audio');
+bgAudio.src='audio/Adventureisland.mp3';
+bgAudio.autoplay= true;
+bgAudio.loop= true;
+document.querySelector('body').appendChild(bgAudio);
 bgAudio.volume = .4;
-bgAudio.play() 
 
 
 class Rock {
