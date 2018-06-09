@@ -202,6 +202,8 @@ function play(audioId) {
 //audio conrol
 const bgAudio = document.querySelector('#backgroungAudio');
 bgAudio.volume = .4;
+bgAudio.play() 
+
 
 class Rock {
     constructor(x, y) {
