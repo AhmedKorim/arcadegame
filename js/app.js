@@ -205,6 +205,7 @@ bgAudio.src='audio/Adventureisland.mp3';
 bgAudio.autoplay= true;
 bgAudio.loop= true;
 document.querySelector('body').appendChild(bgAudio);
+bgAudio.play();
 bgAudio.volume = .4;
 
 
