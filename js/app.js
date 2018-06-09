@@ -38,7 +38,7 @@ class Enemy {
 
 class Heart {
     constructor(x, y) {
-        this.sprite = 'images/heart.png'
+        this.sprite = 'images/Heart.png'
         this.count = 3;
         this.x = x;
         this.y = y;
