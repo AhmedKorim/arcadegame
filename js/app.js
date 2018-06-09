@@ -85,6 +85,7 @@ class Player {
 
     handleInput(movement) {
         // up
+        play('moving');
         if (this.y > 0 && movement === 'up') {
             this.y -= 83;
         }
@@ -112,6 +113,7 @@ class Player {
 
 
         if (this.y < 0) {
+            play('winning');
             this.levleUp();
             this.resetPositon(202, 405);
             statisticsRunner();
@@ -164,6 +166,43 @@ class Gem {
 
 }
 
+const audio = {
+    gem: 'gem.mp3',
+    httingRock: 'htting_rock.mp3',
+    hittingBug: 'htting_bug.mp3',
+    moving: 'moving.mp3',
+    winning: 'winning.mp3',
+};
+for (let key in audio) {
+    const _audio = document.createElement('audio');
+    _audio.id = key;
+    console.log(key, audio[key]);
+    _audio.src = `audio/${audio[key]}`
+    document.querySelector('body').appendChild(_audio)
+
+}
+
+function play(audioId) {
+    const audio = document.getElementById(audioId);
+    audio.play();
+    if (audioId !== 'winning') {
+        setTimeout(_ => {
+            audio.pause();
+            audio.currentTime = 0;
+        }, 450)
+    } else {
+        setTimeout(_ => {
+            audio.pause();
+            audio.currentTime = 0;
+        }, 1200)
+    }
+
+}
+
+//audio conrol
+const bgAudio = document.querySelector('#backgroungAudio');
+bgAudio.volume = .4;
+
 class Rock {
     constructor(x, y) {
         // creating random index
@@ -209,12 +248,12 @@ function heartsGenrator() {
 const gems = [];
 const gemsGenrator = () => {
     const gemInterval = setInterval(function () {
-        if (gems.length < 1) {
+        if (gems.length < player.level + 3) {
             gems.push(new Gem(validPostion.validX[Math.floor(Math.random() * 4 + 0)], validPostion.validY[Math.floor(Math.random() * 2 + 0)]))
         } else {
             gems.splice(1, 1)
         }
-    }, 500);
+    }, 7500);
 
 }
 
@@ -245,7 +284,6 @@ function genInit() {
 }
 
 
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 Array.from(document.querySelectorAll('.chose li')).forEach(function (el) {
@@ -271,6 +309,7 @@ function checkCollisions() {
     collisionHandeler(player, allEnemies, function () {
         player.resetPositon(202, 405);
         heartsGenrator();
+        play('hittingBug');
         player.tries--;
         if (player.tries === 0) {
             document.querySelector('.popUp').classList.add('active');
@@ -281,10 +320,13 @@ function checkCollisions() {
         gems.splice(i, 1)
         player.scoreUp(_.val);
         console.log(player.score);
+        play('gem');
+
     });
     collisionHandeler(player, rocks, function (_, i) {
         rocks.splice(i, 1)
         player.scoreUp(-10);
+        play('httingRock');
         console.log(player.score);
     });
 }
