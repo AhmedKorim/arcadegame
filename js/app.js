@@ -86,6 +86,7 @@ class Player {
     handleInput(movement) {
         // up
         play('moving');
+        document.querySelector('#backgoroundAudio').play();
         if (this.y > 0 && movement === 'up') {
             this.y -= 83;
         }
@@ -202,12 +203,11 @@ function play(audioId) {
 //audio conrol
 const bgAudio = document.createElement('audio');
 bgAudio.src='audio/Adventureisland.mp3';
-bgAudio.autoplay= true;
+// bgAudio.autoplay= true;
 bgAudio.loop= true;
+bgAudio.id='backgoroundAudio'
 document.querySelector('body').appendChild(bgAudio);
-bgAudio.play();
 bgAudio.volume = .4;
-
 
 class Rock {
     constructor(x, y) {
