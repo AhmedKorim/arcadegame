@@ -2,7 +2,7 @@ frontend-nanodegree-arcade-game
 ===============================
 
 
-##resouses
+#resouses
 
  -game background audio adventure iland atri game
  
