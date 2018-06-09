@@ -63,6 +63,13 @@ canvas {
     display: block;
     transform: translate3d(-50%, -50%, 0) scale(1); }
 
+.stats-wrapper {
+  list-style: none; }
+  .stats-wrapper li {
+    float: left;
+    padding: 1rem;
+    font-size: 1.3rem; }
+
 #playAgian {
   font-size: 1.3rem;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
