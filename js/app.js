@@ -1,12 +1,19 @@
 // Enemies our player must avoid
+class gameComponent {
 
-class Enemy {
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+}
+
+class Enemy extends gameComponent {
     constructor(x, y) {
         // Variables applied to each of our instances go here,
         // we've provided one for you to get started
 
         // The image/sprite for our enemies, this uses
         // a helper we've provided to easily load images
+        super();
         this.sprite = 'images/enemy-bug.png';
         this.x = x;
         this.y = y;
@@ -30,28 +37,23 @@ class Enemy {
     }
 
     // Draw the enemy on the screen, required method for game
-
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
 }
 
-class Heart {
+class Heart extends gameComponent{
     constructor(x, y) {
+        super();
         this.sprite = 'images/Heart.png'
         this.count = 3;
         this.x = x;
         this.y = y;
     }
 
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
 }
 
 // Now write your own player class
-class Player {
+class Player extends gameComponent{
     constructor(x, y) {
+        super();
         this.sprite = 'images/char-boy.png';
         this.x = x;
         this.y = y;
@@ -140,15 +142,12 @@ class Player {
         this.y = y;
     }
 
-    // render()
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
 }
 
 // hart class
-class Gem {
+class Gem extends gameComponent{
     constructor(x, y) {
+        super();
         // creating random index
         this.index = Math.floor(Math.random() * 3 + 1);
         this.sprite = `images/Gem${this.index}.png`;
@@ -160,10 +159,6 @@ class Gem {
         this.width = 80;
     }
 
-
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
 
 }
 
@@ -202,16 +197,17 @@ function play(audioId) {
 
 //audio conrol
 const bgAudio = document.createElement('audio');
-bgAudio.src='audio/Adventureisland.mp3';
+bgAudio.src = 'audio/Adventureisland.mp3';
 // bgAudio.autoplay= true;
-bgAudio.loop= true;
-bgAudio.id='backgoroundAudio'
+bgAudio.loop = true;
+bgAudio.id = 'backgoroundAudio'
 document.querySelector('body').appendChild(bgAudio);
 bgAudio.volume = .4;
 
-class Rock {
+class Rock extends gameComponent {
     constructor(x, y) {
         // creating random index
+        super();
         this.sprite = `images/Rock.png`;
         this.x = x;
         this.y = y;
@@ -219,9 +215,6 @@ class Rock {
         this.height = 170;
     }
 
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
 
 }
 
@@ -233,10 +226,10 @@ const validPostion = {
         0, 101, 202, 303, 404
     ],
     validY: [
-        239, 156, 75
+        239, 156, 73
     ]
 };
-const allEnemies = [new Enemy(-50, 73), new Enemy(0, 145), new Enemy(-200, 145), new Enemy(-100, 228)];
+const allEnemies = [new Enemy(-50, 73), new Enemy(0, 156), new Enemy(-200, 156), new Enemy(-100, 239)];
 // Place the player object in a variable called player
 const player = new Player(202, 405);
 const hearts = []
@@ -339,9 +332,27 @@ function checkCollisions() {
 
 function collisionHandeler(player = player, ojectsArr, handelerFn) {
     ojectsArr.forEach((_, i) => {
-        if ((player.x > _.x && player.x < _.x + _.width && player.y > _.y && player.y < _.y + _.height) || (player.x === _.x && player.y === _.y)) {
+        if ((player.x > _.x && player.x < _.x + _.width && player.y === _.y) || (player.x === _.x && player.y === _.y)) {
             handelerFn(_, i);
             statisticsRunner();
         }
     })
+}
+/// /rendering
+function gameRegsterer(arr){
+  Array.from(arguments).forEach((item)=>{
+      if(item.length){
+          item.forEach(_ => {
+              _.render();
+          });
+      }else{
+          if(item.render){
+              item.render();
+          }
+      }
+  })
+
+
+
+
 }
