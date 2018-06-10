@@ -154,22 +154,7 @@ var Engine = (function (global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        gems.forEach(_ => {
-            _.render();
-        });
-
-        allEnemies.forEach(function (enemy) {
-            enemy.render();
-        });
-        rocks.forEach(_ => {
-            _.render();
-        });
-        hearts.forEach((heart) => {
-                heart.render();
-            }
-        );
-        player.render();
-
+        gameRegsterer(gems,allEnemies,rocks,hearts,player);
 
     }
 
